@@ -8,6 +8,6 @@ const port = 3000
 connectDataBase();
 
 app.use(express.json());
-app.use("/user", userRoute)
+app.use("/user", userRoute);
 
 app.listen(port, () => console.log(`Servidor aberto na porta ${port}`))

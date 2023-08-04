@@ -1,13 +1,16 @@
-const express = require('express')
-const app = express()
-const connectDataBase = require('./src/database/db')
-const userRoute = require('./src/routes/user.route')
+import express from 'express'
+import doteEnv from 'dotenv'
+import connectDataBase from "./src/database/db.js";
+import userRoute from './src/routes/user.route.js'
+import authRoute from './src/routes/auth.route.js'
 
-const port = 3000
+doteEnv.config();
+
+const app = express()
+const port = process.env.PORT ?? 3000
 
 connectDataBase();
-
 app.use(express.json());
 app.use("/user", userRoute);
-
+app.use('/auth',authRoute)
 app.listen(port, () => console.log(`Servidor aberto na porta ${port}`))

@@ -1,6 +1,5 @@
 import {loginService,generateToken} from '../services/auth.service.js';
 import bcrypt from "bcrypt";
-import User from "../models/User.js";
 
 const login = async (req, res) => {
 
@@ -17,7 +16,7 @@ const login = async (req, res) => {
         if (!passwoedIsValid)
             return res.status(404).send({message: "User or password not found"});
 
-        const token = generateToken(User.id,)
+        const token = generateToken(user.id)
 
         return res.send({token});
     } catch (err) {

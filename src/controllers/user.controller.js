@@ -1,5 +1,4 @@
-import userService from '../services/user.service.js'
-import mongoose from 'mongoose'
+import {createService, findAllService, updateService} from '../services/user.service.js'
 
 const create = async (req, res) => {
     try {
@@ -9,7 +8,7 @@ const create = async (req, res) => {
             return res.status(400).send({"menssage": "Submit all filds for registration"})
 
         }
-        const user = await userService.create(req.body)
+        const user = await createService(req.body)
 
         if (!user) {
             return res.status(400).send({messege: 'error creating User'})
@@ -27,19 +26,19 @@ const create = async (req, res) => {
                 }
             })
     } catch (err) {
-        return res.status(500).send({err: err.messege})
+        return res.status(500).send({message: err.message})
     }
 }
 
 const findAll = async (req, res) => {
     try {
-        const users = await userService.findAllService()
+        const users = await findAllService()
 
         if (users.length === 0) return res.status(400).send({messege: "there are no regitered user"})
 
         return res.send(users)
     } catch (err) {
-        return res.status(500).send({err: err.messege})
+        return res.status(500).send({err: err.message})
     }
 }
 
@@ -48,7 +47,7 @@ const findById = async (req, res) => {
         const {user} = req
         return res.send(user)
     } catch (err) {
-        return res.status(500).send({err: err.messege})
+        return res.status(500).send({err: err.message})
 
     }
 }
@@ -63,7 +62,7 @@ const update = async (req, res) => {
 
         const {id, user} = req;
 
-        await userService.updateService(
+        await updateService(
             id,
             name,
             username,
@@ -78,7 +77,7 @@ const update = async (req, res) => {
         return res.status(500).send({err: err.messege})
     }
 }
-export default  {
+export {
     create,
     findAll,
     findById,
